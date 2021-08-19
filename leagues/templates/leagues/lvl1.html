@@ -1,143 +1,134 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="es-CL">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Mi primer template Django + Bootstrap">
-    <meta name="author" content="Mauricio Abarca">
-    <meta name="keywords" content="actividad, curso, ejercicio, html, css, bootstrap, Django">
-    <title>Sports Leagues</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-    <!-- jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    {% comment %}
-	<!-- Mi CSS-->
-    <link rel="stylesheet" href="{% static 'assets/css/styles.css' %}">
-    <!-- Mis JS-->
-    <script src="{% static 'assets/js/fecha_reloj.js' %}"></script>
-	{% endcomment %}
-</head>
-<body>
-    <div class="wrapper">
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-            <div class="container-fluid">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-lg-0">
-                        <li class="nav-item"><a class="nav-link" href="{% url 'leagues:index' %}">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'leagues:lvl1' %}">Level 1</a></li>
-						<li class="nav-item"><a class="nav-link" href="{% url 'leagues:lvl2' %}">Level 2</a></li>
-                    </ul>
-                    <span class="navbar-text" id="HoraActual"></span>
-                </div>
-            </div>
-        </nav>
-        <div class="container-fluid p-5 bg-light">
-			<h1>Level 1</h1>
-			<hr>
-			<h3>1. Find all baseball leagues</h3>
-			<ol>
-				{% for league in baseball_leagues %}
-				<li>{{ league.name }}</li>
-				{% endfor %}
-			</ol>
-			<h3>2. Find all womens' leagues</h3>
-			<ol>
-				{% for league in women_leagues %}
-				<li>{{ league.name }}</li>
-				{% endfor %}
-			</ol>
-			<h3>3. Find all leagues where sport is any type of hockey</h3>
-			<ol>
-				{% for league in hockey_leagues %}
-				<li>{{ league.name }}</li>
-				{% endfor %}
-			</ol>
-			<h3>4. Find all leagues where sport is something OTHER THAN football</h3>
-			<ol>
-				{% for league in not_football_leagues %}
-				<li>{{ league.name }}</li>
-				{% endfor %}
-			</ol>
-			<h3>5. Find all leagues that call themselves "conferences"</h3>
-			<ol>
-				{% for league in conferences_leagues %}
-				<li>{{ league.name }}</li>
-				{% endfor %}
-			</ol>
-			<h3>6. Find all leagues in the Atlantic region</h3>
-			<ol>
-				{% for league in atlantic_leagues %}
-				<li>{{ league.name }}</li>
-				{% endfor %}
-			</ol>
-			<h3>7. Find all teams based in Dallas</h3>
-			<ol>
-				{% for team in dallas_teams %}
-				<li>{{ team.location }} {{ team.team_name }}</li>
-				{% endfor %}
-			</ol>
-			<h3>8. Find all teams named the Raptors</h3>
-			<ol>
-				{% for team in raptors_teams %}
-				<li>{{ team.location }} {{ team.team_name }}</li>
-				{% endfor %}
-			</ol>
-			<h3>9. Find all teams whose location includes "City"</h3>
-			<ol>
-				{% for team in location_city_teams %}
-				<li>{{ team.location }} {{ team.team_name }}</li>
-				{% endfor %}
-			</ol>
-			<h3>10. Find all teams whose names begin with "T"</h3>
-			<ol>
-				{% for team in begin_t_teams %}
-				<li>{{ team.location }} {{ team.team_name }}</li>
-				{% endfor %}
-			</ol>
-			<h3>11. Return all teams, ordered alphabetically by location</h3>
-			<ol>
-				{% for team in ordered_location_teams %}
-				<li>{{ team.location }} {{ team.team_name }}</li>
-				{% endfor %}
-			</ol>
-			<h3>12. Return all teams, ordered by team name in reverse alphabetical order</h3>
-			<ol>
-				{% for team in ordered_name_reverse_teams %}
-				<li>{{ team.team_name }}, {{ team.location }}</li>
-				{% endfor %}
-			</ol>
-			<h3>13. Find every player with last name "Cooper"</h3>
-			<ol>
-				{% for player in lastname_cooper_player %}
-				<li>{{ player.first_name }} {{ player.last_name }}</li>
-				{% endfor %}
-			</ol>
-			<h3>14. Find every player with first name "Joshua"</h3>
-			<ol>
-				{% for player in firstname_joshua_player %}
-				<li>{{ player.first_name }} {{ player.last_name }}</li>
-				{% endfor %}
-			</ol>
-			<h3>15. Find every player with last name "Cooper" EXCEPT FOR Joshua</h3>
-			<ol>
-				{% for player in lastname_cooper_not_joshua_player %}
-				<li>{{ player.first_name }} {{ player.last_name }}</li>
-				{% endfor %}
-			</ol>
-			<h3>16. Find all players with first name "Alexander" OR first name "Wyatt"</h3>
-			<ol>
-				{% for player in firstname_alexander_wyatt_player %}
-				<li>{{ player.first_name }} {{ player.last_name }}</li>
-				{% endfor %}
-			</ol>
-        </div>
-    </div>
-    <!-- Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
-</body>
-</html>
+{% extends "leagues/base.html" %}
+{% block title %}Sports Leagues - Level 1{% endblock %}
+{% block content %}
+<h1>Level 1</h1>
+<hr>
+<h3>1. Find all baseball leagues</h3>
+<ol>
+	{% for league in baseball_leagues %}
+	<li>{{ league.name }}</li>
+	{% empty %}
+    <h6>No data</h6>
+	{% endfor %}
+</ol>
+<h3>2. Find all womens' leagues</h3>
+<ol>
+	{% for league in women_leagues %}
+	<li>{{ league.name }}</li>
+	{% empty %}
+    <h6>No data</h6>
+	{% endfor %}
+</ol>
+<h3>3. Find all leagues where sport is any type of hockey</h3>
+<ol>
+	{% for league in hockey_leagues %}
+	<li>{{ league.name }}</li>
+	{% empty %}
+    <h6>No data</h6>
+	{% endfor %}
+</ol>
+<h3>4. Find all leagues where sport is something OTHER THAN football</h3>
+<ol>
+	{% for league in not_football_leagues %}
+	<li>{{ league.name }}</li>
+	{% empty %}
+    <h6>No data</h6>
+	{% endfor %}
+</ol>
+<h3>5. Find all leagues that call themselves "conferences"</h3>
+<ol>
+	{% for league in conferences_leagues %}
+	<li>{{ league.name }}</li>
+	{% empty %}
+    <h6>No data</h6>
+	{% endfor %}
+</ol>
+<h3>6. Find all leagues in the Atlantic region</h3>
+<ol>
+	{% for league in atlantic_leagues %}
+	<li>{{ league.name }}</li>
+	{% empty %}
+    <h6>No data</h6>
+	{% endfor %}
+</ol>
+<h3>7. Find all teams based in Dallas</h3>
+<ol>
+	{% for team in dallas_teams %}
+	<li>{{ team.location }} {{ team.team_name }}</li>
+	{% empty %}
+    <h6>No data</h6>
+	{% endfor %}
+</ol>
+<h3>8. Find all teams named the Raptors</h3>
+<ol>
+	{% for team in raptors_teams %}
+	<li>{{ team.location }} {{ team.team_name }}</li>
+	{% empty %}
+    <h6>No data</h6>
+	{% endfor %}
+</ol>
+<h3>9. Find all teams whose location includes "City"</h3>
+<ol>
+	{% for team in location_city_teams %}
+	<li>{{ team.location }} {{ team.team_name }}</li>
+	{% empty %}
+    <h6>No data</h6>
+	{% endfor %}
+</ol>
+<h3>10. Find all teams whose names begin with "T"</h3>
+<ol>
+	{% for team in begin_t_teams %}
+	<li>{{ team.location }} {{ team.team_name }}</li>
+	{% empty %}
+    <h6>No data</h6>
+	{% endfor %}
+</ol>
+<h3>11. Return all teams, ordered alphabetically by location</h3>
+<ol>
+	{% for team in ordered_location_teams %}
+	<li>{{ team.location }} {{ team.team_name }}</li>
+	{% empty %}
+    <h6>No data</h6>
+	{% endfor %}
+</ol>
+<h3>12. Return all teams, ordered by team name in reverse alphabetical order</h3>
+<ol>
+	{% for team in ordered_name_reverse_teams %}
+	<li>{{ team.team_name }}, {{ team.location }}</li>
+	{% empty %}
+    <h6>No data</h6>
+	{% endfor %}
+</ol>
+<h3>13. Find every player with last name "Cooper"</h3>
+<ol>
+	{% for player in lastname_cooper_player %}
+	<li>{{ player.first_name }} {{ player.last_name }}</li>
+	{% empty %}
+    <h6>No data</h6>
+	{% endfor %}
+</ol>
+<h3>14. Find every player with first name "Joshua"</h3>
+<ol>
+	{% for player in firstname_joshua_player %}
+	<li>{{ player.first_name }} {{ player.last_name }}</li>
+	{% empty %}
+    <h6>No data</h6>
+	{% endfor %}
+</ol>
+<h3>15. Find every player with last name "Cooper" EXCEPT FOR Joshua</h3>
+<ol>
+	{% for player in lastname_cooper_not_joshua_player %}
+	<li>{{ player.first_name }} {{ player.last_name }}</li>
+	{% empty %}
+    <h6>No data</h6>
+	{% endfor %}
+</ol>
+<h3>16. Find all players with first name "Alexander" OR first name "Wyatt"</h3>
+<ol>
+	{% for player in firstname_alexander_wyatt_player %}
+	<li>{{ player.first_name }} {{ player.last_name }}</li>
+	{% empty %}
+    <h6>No data</h6>
+	{% endfor %}
+</ol>
+{% endblock %}
