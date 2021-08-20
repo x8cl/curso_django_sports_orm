@@ -50,9 +50,9 @@ def lvl2(request):
 		#"all_football_players" : Player.objects.filter(curr_team__in=Team.objects.filter(league__in=League.objects.filter(sport="Football"))).order_by("curr_team__location", "curr_team__team_name", "first_name"),
 		"all_football_players" : Player.objects.filter(curr_team__league__sport="Football").order_by("curr_team__location", "curr_team__team_name", "first_name"),
 		#"player_sophia_teams" : Team.objects.filter(curr_players__in=Player.objects.filter(first_name="Sophia")).order_by("location"),
-		"player_sophia_teams" : Team.objects.filter(curr_players__first_name="Sophia").order_by("location"),
+		"teams_sophia_player" : Player.objects.filter(first_name="Sophia").order_by("curr_team__location", "curr_team__team_name", "first_name"),
 		#"player_sophia_leagues" : League.objects.filter(teams__in=Team.objects.filter(curr_players__in=Player.objects.filter(first_name="Sophia"))).order_by("name"),
-		"player_sophia_leagues" : League.objects.filter(teams__curr_players__first_name="Sophia").order_by("name"),
+		"leagues_sophia_player" : Player.objects.filter(first_name="Sophia").order_by("curr_team__league__name", "first_name"),
 		#"flores_not_wr_team_players" : Player.objects.filter(last_name="Flores").exclude(curr_team=Team.objects.get(location="Washington", team_name="Roughriders")).order_by("first_name")
 		"flores_not_wr_team_players" : Player.objects.filter(last_name="Flores").exclude(curr_team__location="Washington", curr_team__team_name="Roughriders").order_by("first_name")
 	}

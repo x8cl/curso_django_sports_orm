@@ -45,16 +45,16 @@
 </ol>
 <h3>6. Find all teams with a (current) player named "Sophia"</h3>
 <ol>
-	{% for team in player_sophia_teams %}
-	<li>{{ team.location }} {{ team.team_name }} ({{ team.curr_players.first_name }} {{ team.curr_players.last_name }})</li>
+	{% for player in teams_sophia_player %}
+	<li>{{ player.curr_team.location }} {{ player.curr_team.team_name }} ({{ player.first_name }} {{ player.last_name }})</li>
 	{% empty %}
     <h6>No data</h6>
 	{% endfor %}
 </ol>
 <h3>7. Find all leagues with a (current) player named "Sophia"</h3>
 <ol>
-	{% for league in player_sophia_leagues %}
-	<li>{{ league.name }} ({{ league.teams.location }} {{ league.teams.team_name }})</li>
+	{% for player in leagues_sophia_player %}
+	<li>{{ player.curr_team.league.name }} ({{ player.first_name }} {{ player.last_name }})</li>
 	{% empty %}
     <h6>No data</h6>
 	{% endfor %}
