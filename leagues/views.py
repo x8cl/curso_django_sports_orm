@@ -54,9 +54,16 @@ def lvl2(request):
 		#"player_sophia_leagues" : League.objects.filter(teams__in=Team.objects.filter(curr_players__in=Player.objects.filter(first_name="Sophia"))).order_by("name"),
 		"leagues_sophia_player" : Player.objects.filter(first_name="Sophia").order_by("curr_team__league__name", "first_name"),
 		#"flores_not_wr_team_players" : Player.objects.filter(last_name="Flores").exclude(curr_team=Team.objects.get(location="Washington", team_name="Roughriders")).order_by("first_name")
-		"flores_not_wr_team_players" : Player.objects.filter(last_name="Flores").exclude(curr_team__location="Washington", curr_team__team_name="Roughriders").order_by("first_name")
+		"flores_not_wr_team_players" : Player.objects.filter(last_name="Flores").exclude(curr_team__location="Washington", curr_team__team_name="Roughriders").order_by("first_name"),
+
+		#####Level 3#####
+		"allTeams_sam_evans_player" : Player.objects.get(first_name="Samuel", last_name="Evans").all_teams.all(),
+		"allPlayers_MTC_team" : Team.objects.get(location="Manitoba", team_name= "Tiger-Cats").all_players.all(),
+		"ex_WV_players" : Team.objects.get(location="Wichita", team_name= "Vikings").all_players.all().exclude(curr_team__location="Wichita", curr_team__team_name="Vikings"),
+		"allExTeams_jacob_gray_player" : Player.objects.get(first_name="Jacob", last_name="Gray").all_teams.all().exclude(location="Oregon", team_name="Colts"),
+		"joshua_played_AFABP_player" : Player.objects.filter(first_name="Joshua", all_teams__league__name="Atlantic Federation of Amateur Baseball Players"),
 	}
-	return render(request, "leagues/lvl2.html", context)
+	return render(request, "leagues/lvl2-3.html", context)
 
 def make_data(request):
 	team_maker.gen_leagues(10)

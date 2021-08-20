@@ -67,4 +67,49 @@
     <h6>No data</h6>
 	{% endfor %}
 </ol>
+<hr>
+<h1 id="level_3">Level 3</h1>
+<hr>
+<h3>1. Find all teams, past and present, that Samuel Evans has played with</h3>
+<ol>
+	{% for team in allTeams_sam_evans_player %}
+	<li>{{team.location}} {{team.team_name}}</li>
+	{% empty %}
+    <h6>No data</h6>
+	{% endfor %}
+</ol>
+<h3>2. Find all players, past and present, with the Manitoba Tiger-Cats</h3>
+<ol>
+	{% for player in allPlayers_MTC_team %}
+	<li>{{player.first_name}} {{player.last_name}}</li>
+	{% empty %}
+    <h6>No data</h6>
+	{% endfor %}
+</ol>
+<h3>3. Find all players who were formerly (but aren't currently) with the Wichita Vikings</h3>
+<ol>
+	{% for player in ex_WV_players %}
+	<li>{{player.first_name}} {{player.last_name}}</li>
+	{% empty %}
+    <h6>No data</h6>
+	{% endfor %}
+</ol>
+<h3>4. Find every team that Jacob Gray played for before he joined the Oregon Colts</h3>
+<ol>
+	{% for team in allExTeams_jacob_gray_player %}
+	<li>{{team.location}} {{team.team_name}}</li>
+	{% empty %}
+    <h6>No data</h6>
+	{% endfor %}
+</ol>
+<h3>5. Find everyone named "Joshua" who has ever played in the Atlantic Federation of Amateur Baseball Players</h3>
+<ol>
+	{% for player in joshua_played_AFABP_player %}
+	<li>{{player.first_name}} {{player.last_name}}</li>
+	{% empty %}
+    <h6>No data</h6>
+	{% endfor %}
+</ol>
+<h3>6. Find all teams that have had 12 or more players, past and present.  (HINT: Look up the Django `annotate` function.)</h3>
+<h3>7. Show all players, sorted by the number of teams they've played for</h3>
 {% endblock %}
