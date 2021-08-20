@@ -39,14 +39,22 @@ def lvl1(request):
 
 def lvl2(request):
 	context = {
-		"atlantic_soccer_league_teams" : Team.objects.filter(league=League.objects.get(name="Atlantic Soccer Conference")),
-		"boston_penguins_players" : Player.objects.filter(curr_team=Team.objects.get(location="Boston", team_name="Penguins")),
-		"icbc_league_players" : Player.objects.filter(curr_team__in=Team.objects.filter(league=League.objects.get(name="International Collegiate Baseball Conference"))).order_by("curr_team__location", "curr_team__team_name", "first_name"),
-		"acaf_league_lopez_player" : Player.objects.filter(curr_team__in=Team.objects.filter(league=League.objects.get(name="American Conference of Amateur Football"))).filter(last_name="Lopez").order_by("first_name"),
-		"all_football_players" : Player.objects.filter(curr_team__in=Team.objects.filter(league__in=League.objects.filter(sport="Football"))).order_by("curr_team__location", "curr_team__team_name", "first_name"),
-		"player_sophia_teams" : Team.objects.filter(curr_players__in=Player.objects.filter(first_name="Sophia")).order_by("location"),
-		"player_sophia_leagues" : League.objects.filter(teams__in=Team.objects.filter(curr_players__in=Player.objects.filter(first_name="Sophia"))).order_by("name"),
-		"flores_not_wr_team_players" : Player.objects.filter(last_name="Flores").exclude(curr_team=Team.objects.get(location="Washington", team_name="Roughriders")).order_by("first_name")
+		#"atlantic_soccer_league_teams" : Team.objects.filter(league=League.objects.get(name="Atlantic Soccer Conference")),
+		"atlantic_soccer_league_teams" : Team.objects.filter(league__name="Atlantic Soccer Conference"),
+		#"boston_penguins_players" : Player.objects.filter(curr_team=Team.objects.get(location="Boston", team_name="Penguins")),
+		"boston_penguins_players" : Player.objects.filter(curr_team__location="Boston", curr_team__team_name="Penguins"),
+		#"icbc_league_players" : Player.objects.filter(curr_team__in=Team.objects.filter(league=League.objects.get(name="International Collegiate Baseball Conference"))).order_by("curr_team__location", "curr_team__team_name", "first_name"),
+		"icbc_league_players" : Player.objects.filter(curr_team__league__name="International Collegiate Baseball Conference").order_by("curr_team__location", "curr_team__team_name", "first_name"),
+		#"acaf_league_lopez_player" : Player.objects.filter(curr_team__in=Team.objects.filter(league=League.objects.get(name="American Conference of Amateur Football"))).filter(last_name="Lopez").order_by("first_name"),
+		"acaf_league_lopez_player" : Player.objects.filter(curr_team__league__name="American Conference of Amateur Football").filter(last_name="Lopez").order_by("first_name"),
+		#"all_football_players" : Player.objects.filter(curr_team__in=Team.objects.filter(league__in=League.objects.filter(sport="Football"))).order_by("curr_team__location", "curr_team__team_name", "first_name"),
+		"all_football_players" : Player.objects.filter(curr_team__league__sport="Football").order_by("curr_team__location", "curr_team__team_name", "first_name"),
+		#"player_sophia_teams" : Team.objects.filter(curr_players__in=Player.objects.filter(first_name="Sophia")).order_by("location"),
+		"player_sophia_teams" : Team.objects.filter(curr_players__first_name="Sophia").order_by("location"),
+		#"player_sophia_leagues" : League.objects.filter(teams__in=Team.objects.filter(curr_players__in=Player.objects.filter(first_name="Sophia"))).order_by("name"),
+		"player_sophia_leagues" : League.objects.filter(teams__curr_players__first_name="Sophia").order_by("name"),
+		#"flores_not_wr_team_players" : Player.objects.filter(last_name="Flores").exclude(curr_team=Team.objects.get(location="Washington", team_name="Roughriders")).order_by("first_name")
+		"flores_not_wr_team_players" : Player.objects.filter(last_name="Flores").exclude(curr_team__location="Washington", curr_team__team_name="Roughriders").order_by("first_name")
 	}
 	return render(request, "leagues/lvl2.html", context)
 
