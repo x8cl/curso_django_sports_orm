@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.db.models import Count
 from .models import League, Team, Player
 
 from . import team_maker
@@ -62,6 +63,8 @@ def lvl2(request):
 		"ex_WV_players" : Team.objects.get(location="Wichita", team_name= "Vikings").all_players.all().exclude(curr_team__location="Wichita", curr_team__team_name="Vikings"),
 		"allExTeams_jacob_gray_player" : Player.objects.get(first_name="Jacob", last_name="Gray").all_teams.all().exclude(location="Oregon", team_name="Colts"),
 		"joshua_played_AFABP_player" : Player.objects.filter(first_name="Joshua", all_teams__league__name="Atlantic Federation of Amateur Baseball Players"),
+		"12plus_allTime_teams" : Team.objects.annotate(wns=Count("all_players")).filter(wns__gt=11),
+		"teams_played_player" : Player.objects.annotate(played=Count("all_teams")).order_by("-played")
 	}
 	return render(request, "leagues/lvl2-3.html", context)
 
